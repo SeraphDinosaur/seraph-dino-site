@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сайт Берлін Серафим</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      color: #fff1d0;
+      background: #120f0a;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1536px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(5, 8, 5, 0.45), rgba(5, 8, 5, 0.65)),
+        url("https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1800&q=80") center top / cover fixed;
+      box-shadow: 0 0 50px #000;
+    }
+
+    .topbar {
+      min-height: 74px;
+      padding: 12px 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(25, 18, 11, 0.9);
+      border-bottom: 4px solid #5c3518;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(4px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 24px;
+      font-weight: 900;
+      text-shadow: 2px 2px 3px #000;
+    }
+
+    .brand-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #d39a4a;
+      border: 4px solid #33200f;
+      box-shadow: inset 0 0 0 3px #f4d398, 0 4px 12px #000;
+      font-size: 27px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      list-style: none;
+      background: rgba(18, 13, 8, 0.85);
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 2px solid #69411e;
+      box-shadow: 0 5px 15px #000;
+    }
+
+    .menu a {
+      display: block;
+      padding: 13px 16px;
+      border-radius: 7px;
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff1d0;
+      text-shadow: 2px 2px 3px #000;
+      transition: 0.2s;
+    }
+
+    .menu a:hover,
+    .menu .active {
+      background: linear-gradient(#c87528, #713415);
+      box-shadow: inset 0 0 0 2px rgba(255, 222, 156, 0.25), 0 4px 8px #000;
+    }
+
+    .search {
+      font-size: 32px;
+      padding: 0 8px;
+    }
+
+    .hero {
+      min-height: 460px;
+      padding: 34px 54px 30px;
+      display: grid;
+      grid-template-columns: 310px minmax(420px, 1fr) 280px;
+      gap: 34px;
+      align-items: center;
+      background:
+        radial-gradient(circle at 72% 25%, rgba(255, 179, 78, 0.24), transparent 32%),
+        linear-gradient(90deg, rgba(0,0,0,0.25), rgba(0,0,0,0.02), rgba(0,0,0,0.3));
+      border-bottom: 7px solid #4a2a12;
+    }
+
+    .photo-card,
+    .quote-card,
+    .resource-card,
+    .sidebar,
+    .clock-box {
+      position: relative;
+    }
+
+    .photo-card {
+      width: 300px;
+      min-height: 340px;
+      padding: 13px;
+      background: #c49c61;
+      border: 8px solid #3b2412;
+      border-radius: 20px 14px 20px 14px;
+      box-shadow: 0 14px 25px rgba(0,0,0,0.75);
+      transform: rotate(2deg);
+    }
+
+    .student-photo {
+      height: 305px;
+      border-radius: 11px;
+      border: 4px solid #754b21;
+      background:
+        linear-gradient(rgba(105, 61, 22, 0.08), rgba(45, 26, 9, 0.22)),
+        url("https://images.unsplash.com/photo-1602922978656-37593993108b?auto=format&fit=crop&w=700&q=80") center / cover;
+    }
+
+    .cute-dino-on-photo {
+      position: absolute;
+      left: -42px;
+      bottom: 25px;
+      font-size: 78px;
+      filter: drop-shadow(3px 5px 4px #000);
+      transform: rotate(-12deg);
+    }
+
+    .hero-text {
+      padding: 20px 0;
+    }
+
+    .title-small {
+      font-family: Impact, fantasy;
+      font-size: 42px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ead6a8;
+      text-shadow: 4px 4px 0 #211307, 0 0 8px #000;
+    }
+
+    .hero h1 {
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: clamp(58px, 6vw, 92px);
+      line-height: 0.95;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #f5e6c8;
+      text-shadow: 5px 5px 0 #241608, 0 0 16px #000;
+      margin: 4px 0 12px;
+    }
+
+    .subtitle {
+      font-family: Arial, sans-serif;
+      color: #ff9435;
+      font-size: 28px;
+      font-weight: 900;
+      text-shadow: 2px 2px 3px #000;
+      margin-bottom: 18px;
+    }
+
+    .intro {
+      max-width: 670px;
+      padding: 16px 20px;
+      font-size: 22px;
+      line-height: 1.5;
+      font-weight: 700;
+      color: #fff8e8;
+      background: rgba(0,0,0,0.42);
+      border: 3px solid rgba(214, 150, 72, 0.7);
+      border-radius: 10px;
+      text-shadow: 2px 2px 3px #000;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .dino-btn {
+      min-width: 225px;
+      padding: 18px 28px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 10px;
+      border: 3px solid #2b1909;
+      color: #ffe9bd;
+      font-size: 27px;
+      font-weight: 900;
+      text-shadow: 2px 2px 3px #000;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.13), 0 8px 0 #271507, 0 12px 20px #000;
+      transition: 0.2s;
+    }
+
+    .dino-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .orange {
+      background: linear-gradient(#cf7b2d, #753311);
+    }
+
+    .green {
+      background: linear-gradient(#7a7a2d, #394313);
+    }
+
+    .quote-card {
+      padding: 28px 18px;
+      min-height: 230px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: #d8b97d;
+      color: #2b1a0b;
+      border: 8px solid #3b2412;
+      border-radius: 16px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.7);
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .quote-dino {
+      font-size: 60px;
+      margin-top: 8px;
+      filter: drop-shadow(2px 3px 1px rgba(0,0,0,0.35));
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 28px;
+      padding: 28px 54px 18px;
+      background: rgba(10, 8, 5, 0.42);
+    }
+
+    .section-title {
+      display: inline-block;
+      margin-left: 12px;
+      padding: 10px 48px;
+      transform: translateY(14px);
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(#9f6631, #573016);
+      border: 4px solid #2c190b;
+      border-radius: 12px;
+      color: #ffdf9d;
+      font-size: 31px;
+      font-weight: 900;
+      text-shadow: 2px 2px 3px #000;
+      box-shadow: 0 7px 13px #000;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding: 34px 15px 18px;
+      background: rgba(59, 38, 20, 0.82);
+      border: 5px solid #3a2413;
+      border-radius: 16px;
+      box-shadow: 0 10px 24px #000;
+    }
+
+    .resource-card {
+      min-height: 310px;
+      display: grid;
+      grid-template-columns: 145px minmax(0, 1fr);
+      gap: 15px;
+      padding: 15px;
+      padding-bottom: 70px;
+      overflow: hidden;
+      color: #1e150c;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255,255,255,0.48), transparent 22%),
+        linear-gradient(#f1dcae, #c8a36a);
+      border: 4px solid #422913;
+      border-radius: 14px;
+      box-shadow: inset 0 0 22px rgba(66,38,15,0.35), 0 7px 14px #000;
+    }
+
+    .resource-img {
+      width: 100%;
+      height: 150px;
+      border-radius: 9px;
+      border: 3px solid rgba(47, 28, 12, 0.55);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.45);
+      background-size: cover;
+      background-position: center;
+    }
+
+    .chatgpt-img {
+      background-image: url("https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80");
+    }
+
+    .meet-img {
+      background:
+        radial-gradient(circle at 50% 50%, #fff6d7 0 19%, transparent 20%),
+        linear-gradient(135deg, #fff5d6 0 22%, #e44040 23% 58%, #3a2d37 59% 100%);
+      position: relative;
+    }
+
+    .meet-img::after {
+      content: "G";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font: 900 95px Arial;
+      color: #fff4d6;
+      text-shadow: 2px 2px #000;
+    }
+
+    .phone-img {
+      background-image: url("https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=600&q=80");
+    }
+
+    .resource-card h3 {
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      line-height: 1.18;
+      color: #111;
+      margin-bottom: 14px;
+      text-shadow: none;
+    }
+
+    .resource-card p {
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 800;
+      color: #2a1a0b;
+      max-width: 100%;
+    }
+
+    .tiny-dino {
+      position: absolute;
+      left: 25px;
+      bottom: 15px;
+      width: 95px;
+      height: 56px;
+      z-index: 2;
+      filter: drop-shadow(2px 3px 1px rgba(0,0,0,0.35));
+    }
+
+    .tiny-dino svg {
+      width: 100%;
+      height: 100%;
+      fill: #8b7242;
+      stroke: #5e4725;
+      stroke-width: 2;
+    }
+
+    .open-btn {
+      position: absolute;
+      right: 20px;
+      bottom: 18px;
+      z-index: 4;
+      padding: 11px 20px;
+      border-radius: 8px;
+      background: linear-gradient(#6f7a2f, #354414);
+      color: #fff0c8;
+      border: 2px solid #1e1406;
+      font-size: 19px;
+      font-weight: 900;
+      text-shadow: 1px 1px 2px #000;
+      box-shadow: 0 5px 0 #1c1307;
+    }
+
+    .sidebar {
+      margin-top: 31px;
+      align-self: start;
+      overflow: hidden;
+      background: linear-gradient(#e9ca92, #c59e66);
+      color: #2a1a0c;
+      border: 6px solid #3a2413;
+      border-radius: 15px;
+      box-shadow: 0 10px 22px #000;
+    }
+
+    .sidebar h3 {
+      padding: 12px;
+      text-align: center;
+      background: linear-gradient(#9b652f, #573016);
+      color: #ffe2a7;
+      font-size: 23px;
+      text-shadow: 2px 2px 3px #000;
+    }
+
+    .side-item {
+      padding: 16px 18px;
+      border-bottom: 2px solid rgba(74, 48, 21, 0.45);
+      text-align: center;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+    }
+
+    .qr {
+      width: 145px;
+      height: 145px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 10px;
+      background:
+        linear-gradient(90deg, #111 10px, transparent 10px) 0 0 / 22px 22px,
+        linear-gradient(#111 10px, transparent 10px) 0 0 / 22px 22px,
+        #fff;
+      border: 10px solid #fff;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+      color: #11b55a;
+      font-size: 42px;
+    }
+
+    .platform {
+      height: 76px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 7px;
+      font-size: 38px;
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+    }
+
+    .ilearn {
+      background: #109e96;
+      color: white;
+    }
+
+    .edera {
+      background: #f5e0bd;
+      color: #1470a9;
+      font-size: 49px;
+      line-height: 0.75;
+    }
+
+    .stone-section {
+      padding: 18px 54px 8px;
+    }
+
+    .stone-panel {
+      margin-bottom: 18px;
+      padding: 24px;
+      background: rgba(37, 25, 15, 0.88);
+      border: 4px solid #664322;
+      border-radius: 16px;
+      box-shadow: 0 7px 18px #000;
+    }
+
+    .stone-panel h2 {
+      margin-bottom: 10px;
+      color: #ffcf7d;
+      font-size: 32px;
+      text-shadow: 2px 2px 3px #000;
+    }
+
+    .stone-panel p,
+    .stone-panel li {
+      color: #fff0d1;
+      font-size: 20px;
+      line-height: 1.55;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .stone-panel ul {
+      margin: 8px 0 0 25px;
+    }
+
+    .bottom {
+      display: grid;
+      grid-template-columns: 1fr 315px;
+      gap: 38px;
+      align-items: center;
+      padding: 22px 60px 26px;
+      background:
+        linear-gradient(rgba(15,12,8,0.9), rgba(15,12,8,0.96)),
+        repeating-linear-gradient(45deg, transparent 0 18px, rgba(255,255,255,0.04) 19px 20px);
+      border-top: 5px solid rgba(84, 55, 28, 0.85);
+    }
+
+    .author {
+      max-width: 650px;
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 20px;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: #fff4dc;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.38;
+      text-shadow: 2px 2px 3px #000;
+    }
+
+    .author-photo {
+      width: 100px;
+      height: 128px;
+      border-radius: 19px;
+      border: 4px solid #86592a;
+      background:
+        linear-gradient(rgba(95, 60, 23, 0.08), rgba(28, 18, 8, 0.2)),
+        url("https://images.unsplash.com/photo-1602922978656-37593993108b?auto=format&fit=crop&w=400&q=80") center / cover;
+      box-shadow: 0 6px 15px #000;
+    }
+
+    .skeleton {
+      text-align: center;
+      margin-top: -35px;
+      font-size: 92px;
+      opacity: 0.78;
+      filter: drop-shadow(3px 4px 2px #000);
+    }
+
+    .year {
+      text-align: center;
+      color: #f8e5bd;
+      font-size: 19px;
+      font-weight: 900;
+    }
+
+    .clock-box {
+      overflow: hidden;
+      background: #d5b784;
+      color: #2d1c0d;
+      border: 5px solid #432b16;
+      border-radius: 11px;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 9px 20px #000;
+    }
+
+    .clock-head {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 14px;
+      background: #86613a;
+      color: #f9ddb0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .time-row {
+      display: grid;
+      grid-template-columns: 42px 1fr 100px;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 13px;
+      border-top: 2px solid rgba(68, 41, 16, 0.45);
+    }
+
+    .flag {
+      font-size: 28px;
+    }
+
+    .city {
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .time {
+      text-align: right;
+      font-size: 29px;
+      font-weight: 900;
+    }
+
+    .tz {
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    @media (max-width: 1180px) {
+      .hero,
+      .content,
+      .bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-card,
+      .quote-card,
+      .sidebar {
+        max-width: 430px;
+      }
+
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .topbar,
+      .hero,
+      .content,
+      .stone-section,
+      .bottom {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .subtitle {
+        font-size: 22px;
+      }
+
+      .intro {
+        font-size: 18px;
+      }
+
+      .photo-card {
+        width: 100%;
+      }
+
+      .resource-card {
+        grid-template-columns: 1fr;
+      }
+
+      .resource-img {
+        height: 180px;
+      }
+
+      .author {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a href="#home" class="brand">
+        <span class="brand-icon">🦖</span>
+        <span>Особистий сайт студента</span>
+      </a>
+
+      <ul class="menu">
+        <li><a class="active" href="#home">Головна сторінка</a></li>
+        <li><a href="#about">Про мене</a></li>
+        <li><a href="#research">Мої дослідження</a></li>
+        <li><a href="#resources">Ресурси</a></li>
+        <li><a href="#contacts">Контакти</a></li>
+        <li class="search">⌕</li>
+      </ul>
+    </header>
+
+    <main id="home" class="hero">
+      <div class="photo-card">
+        <div class="student-photo"></div>
+        <div class="cute-dino-on-photo">🦕</div>
+      </div>
+
+      <section class="hero-text">
+        <div class="title-small">Сайт</div>
+        <h1>Берлін Серафим</h1>
+        <div class="subtitle">студента, майбутнього палеонтолога</div>
+        <p class="intro">
+          Вітаю на моєму сайті! Тут ви знайдете інформацію про мене,
+          мої інтереси, дослідження у світі динозаврів, корисні ресурси
+          для навчання та сучасні інструменти, що допомагають у навчанні та роботі.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="dino-btn orange" href="#about">Про мене 👋</a>
+          <a class="dino-btn green" href="#research">Мої дослідження 🔬</a>
+        </div>
+      </section>
+
+      <aside class="quote-card">
+        <div>
+          <p>«Минуле Землі —<br>ключ до майбутнього»</p>
+          <div class="quote-dino">🦖</div>
+        </div>
+      </aside>
+    </main>
+
+    <section id="resources" class="content">
+      <div>
+        <h2 class="section-title">Корисні ресурси</h2>
+
+        <div class="resource-grid">
+          <article class="resource-card">
+            <div class="resource-img chatgpt-img"></div>
+            <div>
+              <h3>Чат-бот ChatGPT:<br>як ним користуватися</h3>
+              <p>Штучний інтелект для навчання, допомоги з текстами, ідеями та дослідженнями.</p>
+              <a class="open-btn" href="https://chat.openai.com/" target="_blank">Відкрити ↗</a>
+            </div>
+            <div class="tiny-dino">
+              <svg viewBox="0 0 120 70">
+                <ellipse cx="52" cy="42" rx="35" ry="18"></ellipse>
+                <circle cx="86" cy="25" r="16"></circle>
+                <circle cx="90" cy="20" r="3" fill="#2b1b0b"></circle>
+                <path d="M20 42 C5 38 4 25 20 28 C31 31 36 36 40 42"></path>
+                <rect x="35" y="55" width="8" height="13" rx="3"></rect>
+                <rect x="65" y="55" width="8" height="13" rx="3"></rect>
+                <path d="M88 38 L108 48 L91 47"></path>
+              </svg>
+            </div>
+          </article>
+
+          <article class="resource-card">
+            <div class="resource-img meet-img"></div>
+            <div>
+              <h3>Google Meet запускає 360-градусний віртуальний фон для відеодзвінків</h3>
+              <p>Сучасні інструменти для навчання та онлайн-зустрічей.</p>
+              <a class="open-btn" href="https://meet.google.com/" target="_blank">Відкрити ↗</a>
+            </div>
+            <div class="tiny-dino">
+              <svg viewBox="0 0 120 70">
+                <ellipse cx="50" cy="43" rx="34" ry="18"></ellipse>
+                <circle cx="85" cy="27" r="15"></circle>
+                <circle cx="89" cy="22" r="3" fill="#2b1b0b"></circle>
+                <path d="M19 42 C3 40 3 27 18 30 C31 33 35 38 39 42"></path>
+                <rect x="34" y="55" width="8" height="13" rx="3"></rect>
+                <rect x="63" y="55" width="8" height="13" rx="3"></rect>
+                <path d="M89 39 L108 49 L91 48"></path>
+              </svg>
+            </div>
+          </article>
+
+          <article class="resource-card">
+            <div class="resource-img phone-img"></div>
+            <div>
+              <h3>Названий простий спосіб звільнити пам'ять на смартфоні</h3>
+              <p>Корисні поради та інструкції для щоденного використання.</p>
+              <a class="open-btn" href="https://support.google.com/android/answer/7431795?hl=uk" target="_blank">Відкрити ↗</a>
+            </div>
+            <div class="tiny-dino">
+              <svg viewBox="0 0 120 70">
+                <ellipse cx="52" cy="42" rx="35" ry="18"></ellipse>
+                <circle cx="86" cy="25" r="16"></circle>
+                <circle cx="90" cy="20" r="3" fill="#2b1b0b"></circle>
+                <path d="M20 42 C5 38 4 25 20 28 C31 31 36 36 40 42"></path>
+                <rect x="35" y="55" width="8" height="13" rx="3"></rect>
+                <rect x="65" y="55" width="8" height="13" rx="3"></rect>
+                <path d="M88 38 L108 48 L91 47"></path>
+              </svg>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <h3>Швидкі посилання</h3>
+        <div class="side-item">
+          <div class="qr">🦖</div>
+          <p>QR-код сайту</p>
+        </div>
+        <div class="side-item">
+          <a href="https://ilearn.org.ua/" target="_blank">
+            <div class="platform ilearn">iLearn</div>
+            <p>Платформа iLearn</p>
+          </a>
+        </div>
+        <div class="side-item">
+          <a href="https://ed-era.com/" target="_blank">
+            <div class="platform edera">ED<br>ERA</div>
+            <p>Платформа EdEra</p>
+          </a>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" class="stone-section">
+      <div class="stone-panel">
+        <h2>Про мене 🦕</h2>
+        <p>
+          Мене звати Берлін Серафим Олегович. Я студент 11 СО (мом) групи.
+          Мене цікавить палеонтологія, історія життя на Землі, динозаври,
+          скам'янілості та наукові відкриття. У майбутньому я хочу стати
+          палеонтологом і досліджувати давній світ нашої планети.
+        </p>
+      </div>
+    </section>
+
+    <section id="research" class="stone-section">
+      <div class="stone-panel">
+        <h2>Мої дослідження 🔬</h2>
+        <p>На сайті я можу розміщувати матеріали про:</p>
+        <ul>
+          <li>динозаврів різних періодів;</li>
+          <li>розкопки та скам'янілості;</li>
+          <li>історію розвитку життя на Землі;</li>
+          <li>корисні навчальні ресурси;</li>
+          <li>сучасні технології, які допомагають у навчанні.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contacts" class="stone-section">
+      <div class="stone-panel">
+        <h2>Контакти</h2>
+        <p>Email: student@example.com</p>
+        <p>Навчальний заклад: КЗ КОР «Білоцерківський гуманітарно-педагогічний фаховий коледж»</p>
+      </div>
+    </section>
+
+    <footer class="bottom">
+      <div>
+        <div class="author">
+          <div class="author-photo"></div>
+          <p>
+            <b>Автор</b><br>
+            Берлін Серафим Олегович<br>
+            студент 11 СО (мом) групи<br>
+            КЗ КОР «Білоцерківський гуманітарно-педагогічний фаховий коледж»
+          </p>
+        </div>
+        <div class="skeleton">🦴 🦖 🦴</div>
+        <div class="year">© 2025</div>
+      </div>
+
+      <div class="clock-box">
+        <div class="clock-head">
+          <span>Час</span>
+          <span id="dateText">31 травня, 2025</span>
+        </div>
+        <div class="time-row">
+          <span class="flag">🇺🇦</span>
+          <span class="city">Київ</span>
+          <span class="time"><span id="kyivTime">18:23</span><span class="tz">Europe/Kyiv</span></span>
+        </div>
+        <div class="time-row">
+          <span class="flag">🇬🇧</span>
+          <span class="city">Лондон</span>
+          <span class="time"><span id="londonTime">16:23</span><span class="tz">Europe/London</span></span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      const date = new Intl.DateTimeFormat('uk-UA', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        timeZone: 'Europe/Kyiv'
+      }).format(now);
+
+      const kyiv = new Intl.DateTimeFormat('uk-UA', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: 'Europe/Kyiv'
+      }).format(now);
+
+      const london = new Intl.DateTimeFormat('uk-UA', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: 'Europe/London'
+      }).format(now);
+
+      document.getElementById('dateText').textContent = date;
+      document.getElementById('kyivTime').textContent = kyiv;
+      document.getElementById('londonTime').textContent = london;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
